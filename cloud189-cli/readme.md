@@ -1,4 +1,4 @@
-``bash
+```bash
 # 构建镜像
 docker build -t wbsu2003/cloud189-cli:v1 .
 
