@@ -1,0 +1,18 @@
+FROM node:16.5-slim
+MAINTAINER laosu<wbsu2003@gmail.com>
+
+COPY . /mynav/
+
+WORKDIR /nav/
+VOLUME /nav
+
+EXPOSE 7000
+
+CMD \
+  if [ "$(ls -A /nav)" ]; then \
+    echo "***** nav目录存在并且有内容, 跳过 *****" ; \
+  else \
+    echo "***** nav程序目录不存在或为空, 开始拷贝文件 *****" && \
+    cp -R /mynav/. /nav/; \
+  fi; \
+  yarn && yarn start; \
