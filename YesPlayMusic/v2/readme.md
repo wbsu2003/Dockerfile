@@ -16,9 +16,11 @@ docker build -t wbsu2003/yesplaymusic:v2 .
 
 # 生成容器
 docker run -d \
---name=mplay \
+--name=yesplaymusic \
 -p 3320:80 \
 -e VUE_APP_NETEASE_API_URL=/api \
+-e VUE_APP_LASTFM_API_KEY=<you Last.fm API KEY> \
+-e VUE_APP_LASTFM_API_SHARED_SECRET=<you Last.fm API SHARED SECRET> \
 wbsu2003/yesplaymusic:v2
 
 # --------调试-------------
