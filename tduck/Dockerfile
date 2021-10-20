@@ -35,5 +35,4 @@ COPY --from=build_end /tduck-platform/tduck-api/target/tduck-api.jar /usr/local/
 
 EXPOSE 80
 
-#ENTRYPOINT ["java","-jar","/usr/local/lib/tduck-api.jar"]
 ENTRYPOINT ["supervisord","-c","/etc/supervisord.conf"]
