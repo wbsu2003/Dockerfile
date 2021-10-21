@@ -17,6 +17,6 @@ docker build -t wbsu2003/mirotalk:v1 . --network=host
 docker run -it --name=mirotalk \
 -p 3330:3000 \
 -e NGROK_ENABLED=true \
--e NGROK_AUTH_TOKEN="Your Authtoken" \ # 你的 ngrok Authtoken
+-e NGROK_AUTH_TOKEN="Your ngrok Authtoken" \ # 你的 ngrok Authtoken
 wbsu2003/mirotalk:v1
 ```
