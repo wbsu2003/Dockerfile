@@ -4,7 +4,7 @@ FROM node:14-alpine
 WORKDIR /usr/src/app
 
 # 尝试使用 https 而不是 http
-#RUN sed -i -e 's/http:/https:/' /etc/apk/repositories
+RUN sed -i -e 's/http:/https:/' /etc/apk/repositories
 
 # 使用阿里镜像 https://mirrors.aliyun.com
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
