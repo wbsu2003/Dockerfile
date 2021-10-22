@@ -15,6 +15,8 @@ cd nettu-meet
 # 构建镜像
 docker build -t wbsu2003/nettu-meet:v1 .
 
+# 将 docker-compose.yml 放入安装目录
+
 # 一键启动
 docker-compose up -d
 
