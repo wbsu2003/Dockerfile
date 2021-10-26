@@ -6,8 +6,10 @@ WORKDIR /ags
 COPY ./requirements.txt /ags
 
 # set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1  # 防止 Python 将 pyc 文件复制到容器中。
-ENV PYTHONUNBUFFERED 1         # 确保将 Python 输出记录到终端，从而可以实时监控 Django 日志。
+## 防止 Python 将 pyc 文件复制到容器中
+ENV PYTHONDONTWRITEBYTECODE 1
+## 确保将 Python 输出记录到终端，从而可以实时监控 Django 日志。
+ENV PYTHONUNBUFFERED 1
 
 # Environment
 # 可更换的源：
