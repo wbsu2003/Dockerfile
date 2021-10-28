@@ -4,10 +4,9 @@ services:
   app:
     image: monica:fpm
     environment:
-      - APP_KEY=
-      - DB_HOST=db
+      - DB_HOST=<host IP:port>
       - DB_USERNAME=monica
-      - DB_PASSWORD=secret
+      - DB_PASSWORD=<your db passwor>
     volumes:
       - data:/var/www/html/storage
     restart: always
@@ -15,7 +14,7 @@ services:
   web:
     build: ./web
     ports:
-      - 8080:80
+      - 3780:80
     depends_on:
       - app
     volumes:
