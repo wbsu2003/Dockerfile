@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  app:
+    image: monica:fpm
+    environment:
+      - APP_KEY=
+      - DB_HOST=db
+      - DB_USERNAME=monica
+      - DB_PASSWORD=secret
+    volumes:
+      - data:/var/www/html/storage
+    restart: always
+
+  web:
+    build: ./web
+    ports:
+      - 8080:80
+    depends_on:
+      - app
+    volumes:
+      - data:/var/www/html/storage:ro
+    restart: always
+
+volumes:
+  data:
+    name: data
