@@ -9,7 +9,17 @@ git clone https://github.com/kevinshen56714/SkyOffice.git
 git clone https://hub.fastgit.org/kevinshen56714/SkyOffice.git
 
 # 进入目录
-cd SkyOffice
+cd SkyOffice/client
+
+# 将前端编译生成静态文件
+npm install && npm run build
+
+# 记得删除 SkyOffice/client/node_modules 目录，不然镜像会更大
+
+# 回到 SkyOffice 目录
+cd ..
+
+# 将 Dockerfile、和 supervisord.conf 放在 SkyOffice 目录下
 
 # 构建镜像
 docker build -t wbsu2003/skyoffice:v1 .
@@ -18,6 +28,5 @@ docker build -t wbsu2003/skyoffice:v1 .
 docker run -d \
 --name=skyoffice \
 -p 3330:3000 \
--e NODE_ENV=production \
 wbsu2003/skyoffice:v1
 ```
