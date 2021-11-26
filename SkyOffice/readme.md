@@ -19,7 +19,7 @@ npm install && npm run build
 # 回到 SkyOffice 目录
 cd ..
 
-# 将 Dockerfile、和 supervisord.conf 放在 SkyOffice 目录下
+# 将 Dockerfile 和 supervisord.conf 放在 SkyOffice 目录下
 
 # 构建镜像
 docker build -t wbsu2003/skyoffice:v1 .
