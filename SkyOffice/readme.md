@@ -19,14 +19,24 @@ npm install && npm run build
 # 回到 SkyOffice 目录
 cd ..
 
-# 将 Dockerfile 和 supervisord.conf 放在 SkyOffice 目录下
+# 将 Dockerfile、supervisord.conf、 replace_api_url.sh 放在 SkyOffice 目录下
 
 # 构建镜像
 docker build -t wbsu2003/skyoffice:v1 .
 
-# 生成容器
+# 生成容器(局域网)
 docker run -d \
 --name=skyoffice \
--p 3330:3000 \
+-p 2567:2567 \
+-p 2568:3000 \
+-e BACKEND_URL=ws://192.168.0.114:2567 \
+wbsu2003/skyoffice:v1
+
+# 生成容器(互联网)
+docker run -d \
+--name=skyoffice \
+-p 2567:2567 \
+-p 2568:3000 \
+-e BACKEND_URL=wss://map.laosu.ml \
 wbsu2003/skyoffice:v1
 ```
