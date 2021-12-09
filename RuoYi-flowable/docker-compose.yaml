@@ -1,0 +1,46 @@
+version: '3.6'
+services:
+  flow-app:
+    container_name: flow-app
+    environment:
+      - SPRING_DATASOURCE_DRUID_MASTER_URL=$SPRING_DATASOURCE_URL
+      - SPRING_DATASOURCE_DRUID_MASTER_USERNAME=$MYSQL_ROOT_NAME
+      - SPRING_DATASOURCE_DRUID_MASTER_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - SPRING_REDIS_DATABASE=0
+      - SPRING_REDIS_HOST=$REDIS_HOST
+      - SPRING_REDIS_PORT=$REDIS_PORT
+      - SPRING_REDIS_PASSWORD=$REDIS_PASSWORD
+      - RUOYI_PROFILE=/home/ruoyi/uploadPath
+    image: "wbsu2003/flowable:v1"
+    ports:
+      - 12880:80
+    restart: always
+
+  flow-redis:
+    container_name: flow-redis
+    image: redis:6.2.1
+    ports:
+      - 12888:6379
+    volumes:
+      - redis_data:/data
+
+  flow-mysql:
+    container_name: flow-mysql
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+    ports:
+      - 12806:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    command: 
+      --default-authentication-plugin=mysql_native_password
+      --lower_case_table_names=1
+
+volumes:
+  mysql_data:
+  nginx_log:
+  redis_data:
