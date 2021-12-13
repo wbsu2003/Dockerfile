@@ -16,7 +16,7 @@ cd RuoYi-flowable
 # 构建镜像
 docker build -t wbsu2003/flowable:v1 .
 
-# 将 docker-compose.yaml 、.env 两个文件放进 RuoYi-flowable 目录中
+# 将 docker-compose.yaml 、.env 两个文件放进 RuoYi-flowable 目录中，非本机构建的话直接下载 flowable.zip 文件
 
 # 一键启动
 docker-compose up -d
