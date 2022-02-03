@@ -1,3 +1,5 @@
+将 `tinyfilemanager.php` 中两处 `ajax.googleapis.com` 修改为 `cdn.bootcdn.net`
+
 构建镜像和容器运行的基本命令如下👇
 
 ```bash
