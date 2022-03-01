@@ -1,5 +1,10 @@
 
-2022.02.28、更新v3版本，将基础镜像从 `php:7.3-apache` 改为了 `php:7.0-apache`
+2022.02.28、更新v3版本，将基础镜像从 `php:7.3-apache` 改为了 `php:7.0-apache`，解决了在 `DS3617xs 6.17版` 上常见的错误
+
+```log
+Function not implemented: AH00141: Could not initialize random number generator
+```
+
 
 2022.02.27、更新v2版本，修正了：
 1. 2M的上传限制；
