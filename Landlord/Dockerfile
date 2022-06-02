@@ -4,6 +4,7 @@
 ## Build
 ##
 FROM golang:1.16-buster AS build
+LABEL maintainer=laosu<wbsu2003@gmail.com>
   
 WORKDIR /app
   
