@@ -16,7 +16,8 @@ docker build -t wbsu2003/yuindex-server:v1 .
 # 进入前端目录
 cd yuindex
 
-# 前端要用老苏的 `Dockerfile` 文件替换官方的；
+# 前端要用老苏的 Dockerfile 文件替换官方的；
+# 将 replace_api_url.sh 放入当前目录；
 
 # 构建前端镜像
 docker build -t wbsu2003/yuindex-client:v1 .
