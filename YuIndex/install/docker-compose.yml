@@ -2,7 +2,7 @@ version: '3'
     
 services:    
   backend:    
-    image: wbsu2003/yuindex-server:v1    
+    image: wbsu2003/yuindex-server
     container_name: yi_server    
     volumes:     
       - ./config:/usr/src/app/src/config   
@@ -12,7 +12,7 @@ services:
     restart: unless-stopped    
       
   frontend:    
-    image: wbsu2003/yuindex-client:v1  
+    image: wbsu2003/yuindex-client
     container_name: yi_client   
     environment:  
       BACKEND_URL: http://192.168.0.197:3443  
