@@ -1,0 +1,53 @@
+version: '3'    
+    
+services:    
+  backend:    
+    image: wbsu2003/yuindex-server:v1    
+    container_name: yi_server    
+    volumes:     
+      - ./config:/usr/src/app/src/config   
+    depends_on:    
+      - db  
+      - redis  
+    restart: unless-stopped    
+      
+  frontend:    
+    image: wbsu2003/yuindex-client:v1  
+    container_name: yi_client   
+    environment:  
+      BACKEND_URL: http://192.168.0.197:3443  
+    depends_on:    
+      - backend  
+    restart: unless-stopped  
+  
+  db:  
+    image: mysql 
+    container_name: yi_mysql  
+    environment:  
+      MYSQL_ROOT_PASSWORD: 'Eig7r3DDmfvP'  
+      MYSQL_DATABASE: 'yuindex'  
+      MYSQL_USER: 'yuindex'  
+      MYSQL_PASSWORD: '123456'  
+    volumes:  
+      - ./data:/var/lib/mysql  
+      - ./init:/docker-entrypoint-initdb.d/
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  
+  redis:  
+    image: redis
+    container_name: yi_redis  
+    depends_on:    
+      - db  
+    restart: always  
+      
+  proxy:    
+    image: nginx    
+    container_name: yi_nginx    
+    ports:    
+      - 3443:80  
+    volumes:    
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro    
+    depends_on:    
+      - backend    
+      - frontend  
+    restart: unless-stopped
