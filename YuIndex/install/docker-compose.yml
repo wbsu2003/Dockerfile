@@ -36,9 +36,10 @@ services:
   redis:  
     image: redis
     container_name: yi_redis  
+    command: redis-server --requirepass 123456
     depends_on:    
       - db  
-    restart: always  
+    restart: always
       
   proxy:    
     image: nginx    
