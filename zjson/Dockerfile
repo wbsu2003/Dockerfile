@@ -1,3 +1,4 @@
+# 第一阶段：构建应用
 FROM node:16.5 AS build  
   
 # 改阿里源  
