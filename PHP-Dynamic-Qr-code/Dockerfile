@@ -1,6 +1,11 @@
 FROM php:7.4.21-apache
 ARG APP_VERSION=v1.0.6
 
+# 改阿里源  
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list  
+RUN cat /etc/apt/sources.list  
+RUN rm -Rf /var/lib/apt/lists/*  
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends less nano tini curl tar git zip unzip && \
     #echo "**** # To install networking tools for testing purpose ****" && \
@@ -9,7 +14,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     apt-get clean -y
 
-RUN curl -SL -o app.tar.gz "https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code/archive/${APP_VERSION}.tar.gz"  \
+RUN curl -SL -o app.tar.gz "https://ghproxy.com/github.com/giandonatoinverso/PHP-Dynamic-Qr-code/archive/${APP_VERSION}.tar.gz"  \
     && mkdir -p /app \
     && tar xvf app.tar.gz -C /app --strip-components=1 \
     && cp -r /app/qrcode/** /var/www/html \
