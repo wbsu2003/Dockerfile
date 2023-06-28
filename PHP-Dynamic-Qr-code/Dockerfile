@@ -18,6 +18,7 @@ RUN curl -SL -o app.tar.gz "https://ghproxy.com/github.com/giandonatoinverso/PHP
     && mkdir -p /app \
     && tar xvf app.tar.gz -C /app --strip-components=1 \
     && cp -r /app/qrcode/** /var/www/html \
+    && cp -r /app/read.php /var/www/html \
     && rm app.tar.gz
 
 RUN apt-get update
