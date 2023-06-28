@@ -43,6 +43,8 @@ WORKDIR /var/www/html
 COPY ./config/docker-entrypoint.sh /bin/docker-entrypoint.sh
 RUN chmod +x /bin/docker-entrypoint.sh
 COPY ./config/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY ./config/ports.conf /etc/apache2/ports.conf
+COPY ./config/servername.conf /etc/apache2/conf-available/servername.conf
 RUN a2enmod rewrite
 
 ENV APP_USER appuser
@@ -58,7 +60,7 @@ RUN groupadd -g ${PGID} $APP_USER \
 USER $APP_USER
 CMD apache2ctl -D FOREGROUND
 
-EXPOSE 80
+EXPOSE 3080
 
 # needs to fix install process to create database and then below line can be commented out
-#ENTRYPOINT ["/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/docker-entrypoint.sh"]
