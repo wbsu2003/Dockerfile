@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: iptv-manager-db
+    restart: always
+    volumes:
+      - ./iptv.sql:/docker-entrypoint-initdb.d/iptv.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: iptv
+      MYSQL_USER: your_user_password
+      MYSQL_PASSWORD: iptv
+
+  app:
+    image: wbsu2003/iptv-manager
+    container_name: iptv-manager-app
+    restart: always
+    volumes:
+      - web:/var/www/html
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: iptv
+      DB_PASSWORD: your_user_password
+      DB_NAME: iptv
+    depends_on:  
+      - mariadb
+    links:  
+      - mariadb
+
+  web:
+    image: nginx
+    container_name: iptv-manager-nginx
+    restart: always
+    ports:
+      - 3332:80
+    links:
+      - app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    volumes_from:
+      - app
+
+volumes:
+  web:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/volume1/docker/iptv-manager/web'
