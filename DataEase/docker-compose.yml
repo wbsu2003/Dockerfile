@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  dataease1:
+    image: registry.cn-qingdao.aliyuncs.com/dataease/dataease:v2.5.0
+    container_name: dataease-app
+    ports:
+      - 8100:8100
+    volumes:
+      - ./conf:/opt/apps/config
+      - ./logs:/opt/dataease2.0/logs
+      - ./data/static-resource:/opt/dataease2.0/data/static-resource
+      - ./cache:/opt/dataease2.0/cache
+      - ./data/geo:/opt/dataease2.0/data/geo
+      - ./data/appearance:/opt/dataease2.0/data/appearance
+    env_file:
+      - ./conf/install.conf
+    depends_on:
+      - mysql
+  
+  mysql:
+    image: registry.cn-qingdao.aliyuncs.com/dataease/mysql:8.3.0
+    container_name: dataease-mysql
+    #ports:
+    # - 3306:3306
+    environment:
+    #  - MYSQL_DATABASE=dataease
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql:/docker-entrypoint-initdb.d/
+      - ./db:/var/lib/mysql
