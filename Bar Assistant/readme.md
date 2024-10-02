@@ -28,4 +28,4 @@ docker run -d \
 
 欢迎关注公众号：
 
-![各种折腾](https://laosu.ml/uploads/wechat-qcode.jpg)
+![各种折腾](https://laosu.tech/uploads/wechat-qcode.jpg)
