@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v1.8 # Never use latest tag
+    container_name: barassistant-meilisearch
+    environment:
+      - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
+      - MEILI_ENV=production
+    restart: unless-stopped
+    volumes:
+      - ./mdata:/meili_data
+
+  # Optional, but recommended
+  redis:
+    image: redis
+    container_name: barassistant-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: unless-stopped
+
+  bar-assistant:
+    image: barassistant/server:v4
+    container_name: barassistant-app
+    depends_on:
+      - meilisearch
+      - redis # Remove if not using redis
+    environment:
+      - APP_URL=$API_URL
+      - MEILISEARCH_KEY=$MEILI_MASTER_KEY
+      - MEILISEARCH_HOST=http://meilisearch:7700 # This needs to be host that can be resolved from inside the container.
+      - REDIS_HOST=redis # Remove if not using redis
+      - CACHE_DRIVER=redis # Change to "file" if not using redis
+      - SESSION_DRIVER=redis # Change to "file" if not using redis
+      - ALLOW_REGISTRATION=true
+    restart: unless-stopped
+    volumes:
+      - ./bdata:/var/www/cocktails/storage/bar-assistant
+
+  salt-rim:
+    # image: barassistant/salt-rim:v3
+    image: wbsu2003/salt-rim:v3
+    container_name: barassistant-salt-rim
+    depends_on:
+      - bar-assistant
+    environment:
+      - API_URL=$API_URL
+      - MEILISEARCH_URL=$MEILISEARCH_URL
+    restart: unless-stopped
+
+  # Reverse proxy all web services
+  # You can remove this service if you already have a reverse proxy somewhere in your stack,
+  # but you will need to manually setup the configuration
+  # Check included nginx.conf for reference
+  webserver:
+    image: nginx:alpine
+    container_name: barassistant-web
+    restart: unless-stopped
+    depends_on:
+      - bar-assistant
+      - salt-rim
+      - meilisearch
+    ports:
+      - 3652:3000
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
