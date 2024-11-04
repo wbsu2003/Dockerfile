@@ -8,8 +8,8 @@ openssl req -new -x509 -key my-release-key.pem -out my-release-cert.pem -days 36
 openssl pkcs12 -export -out "$KEYSTORE_PATH" -inkey my-release-key.pem -in my-release-cert.pem -name "my-key-alias" -passout pass:"$KEYSTORE_PASSWORD"
 
 # 检查生成的 keystore 文件
-if [ -f /app/my-release-key.keystore ]; then
-    echo "Keystore successfully created at /app/my-release-key.keystore"
+if [ -f $KEYSTORE_PATH ]; then
+    echo "Keystore successfully created at $KEYSTORE_PATH"
 else
     echo "Failed to create keystore."
 fi
