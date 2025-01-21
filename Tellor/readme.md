@@ -8,7 +8,8 @@ git clone https://github.com/Voldrix/Tellor.git
 cd Tellor
 
 # 将 Dockerfile 放入当前目录
-  
+# 修改 api.php
+
 # 构建镜像
 docker build -t wbsu2003/tellor:v1 .
 ```
